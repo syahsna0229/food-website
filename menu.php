@@ -1,4 +1,8 @@
-<?php include("conn.php")?>
+<?php 
+
+include'conn.php';
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,46 +60,47 @@
 </section>
 <!-- end category -->
 
-<section class="popular" id="popular">
+    <section class="popular" id="popular">
 
-    <div class="heading">
-        <span>popular food</span>
-        <h3>our special dishes</h3>
+<div class="heading">
+    <span>popular food</span>
+    <h3>our special dishes</h3>
+</div>
+<?php
+  $sql="SELECT * FROM foods;";
+  $result=mysqli_query($connect,$sql);
+  $resultCheck=mysqli_num_rows($result);
+
+  if($resultCheck>0){
+    while($row=mysqli_fetch_assoc($result)){
+        ?>
+  <div class="box-container">
+
+<div class="box">
+    <a href="#" class="fas fa-heart"></a>
+    <div class="image">
+        <img src=<?php echo $row["picture"];?> alt="">
     </div>
-<?php
-$product=mysqli_query($connect"SELECT * FROM foods ORDER BY foods_id ASC");
- if (!empty($product)){
-	 while($row=mysqli_fetch_array($product)){
+    <div class="content">
+        <h3><?php echo $row["name"];?></h3>
+        <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span> (50) </span>
+        </div>
+        <div class="price"><?php echo $row["price"]?></div>
+        <a href="#" class="btn">add to cart</a>
+    </div>
+</div>
+    <?php
+    }
+
+  }
 ?>
-    <div class="box-container">
-    <form method="post" action="index.php?action=add&pid=<?php echo $row["foods_id"];?>">
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>  
-            </div>
-            <div class="content">
-			<div class="foods-image"><img src="<?php echo $row["picture"];?>"?</div>
-               <div class="foods-name"><?php echo $row["name"];?></div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                    <span> (50) </span>
-                </div>
-                <div class="foods-price"><?php echo "RM".$row["price"];?></div>
-                <div class="foods-quantity"><input type="text" name="quantity" value="1" size="2"></div>
-				<div class="btn" ><input type="submit" value="Add to Cart"></div>
-            </div>
-        </form>
-	</div>
-	
-<?php
-	 }
- } else {
-echo "No Records.";
- }
-?> 
+
 
 </section>
 

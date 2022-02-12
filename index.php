@@ -36,7 +36,6 @@
 
 <!-- shopping-cart section  -->
 
-<?php include ("cart.php") ?>
 
 <!-- login-form  -->
 
